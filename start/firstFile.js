@@ -1,3 +1,3 @@
 var hello = "Hello world from NODE JS";
 
-console.log(hello);
+global.console.log(hello);
