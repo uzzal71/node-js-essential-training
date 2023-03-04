@@ -1,2 +1,2 @@
-# node-js-essential-training
+# Nodejs essential training
 Nodejs Basic
