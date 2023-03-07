@@ -1,8 +1,0 @@
-const express import 'express';
-
-const PORT = 3000;
-const app = express();
-
-app.listen(PORT, () => {
-  console.log('Server is running on port 3000');
-})
