@@ -31,5 +31,52 @@ console.log(
  for (let key in global) {
   console.log(key);
 }
-
  ```
+
+ #### 2.3 Handling argument variables with process.argv
+ ```
+ console.log(process.argv)
+ ```
+One important object that's available to us globally is the process object. So it can be accessed from absolutely anywhere, and it contains functionality that allows us to interact with information about the current process instance. With the process object, we can get environment information, read environment variables, communicate with the terminal, and we can exit the current process. So it gives us a way to work with that current process instance. So one of the things that we can do with the process object is collect information from the terminal. So this information is stored in the process.argv array. So check this out. We're going to get rid of the code that was here before and replace it with a console log to figure out what is available in this process.argv value. Now, we want to make sure that we're navigated to the right file here, and we can run node global. This will then return to us this process.argv array. As you can see, it's an array that contains the path to node as well as the path to the file. So basically what we're seeing here is everything that I have sent when I created this command. So the location of node where that's running and then the file itself. 
+```
+node global --user Uzzal --greting "Hello from node"
+```
+Let's try to run our app again, but this time we're going to pass in some more information. So we'll say --user and then our name, and then we'll say --greeting, and we'll say "hello from node." Now if we hit Enter, we see a larger array. Now the process argv array starts with the same two things at the beginning, but each additional array value represents the rest of what we typed into the console after the global module. So we see our user flag and our name, and we see our greeting flag and the greeting. So let's try to create the little function that's going to help us process some of these values. We're going to create a function called grab, and here we're going to grab this flag. We will say let indexAfterFlag equal process.argv.index of flag, plus one. So this is going to give us the position of the index after the flag. So whatever this value is and whatever this value is. So we're going to grab it this way. We'll say return process argv and then the index we want to grab is the index after the flag. So now let's try to grab the value after the greeting. We'll say let greeting equal grab --greeting, and then we'll say let user equal grab. We'll call that grab function, and this time we want to pass it the user flag. Perfect, so now we can console-log the greeting, and then we'll console-log the user. I also want to stop console-logging the process argv value up here. We'll just delete that, just so we don't get confused, and then check it out. We have been able to isolate the value that we've passed in with that flag for both. So utilizing this process.argv array is going to let us collect user input. We can create all sorts of cool command line applications with node just by understanding this array.
+```
+function grab(flag) {
+    let indexAfterFlag = process.argv.indexOf(flag) + 1;
+    return process.argv[indexAfterFlag];
+}
+
+let greeting = grab("--greeting");
+let user = grab("--user")
+
+console.log(greeting)
+console.log(user)
+```
+Run
+```
+node global --user Uzzal --greting "Hello from node"
+```
+
+#### 2.4 Working with standard input
+Another feature of the process object is standard input and standard output. These two objects offer us a way to communicate with a process while it's running. So what we're going to do next is we want to make sure that we're in our global file and that we're navigated to the right spot in the terminal, get rid of the code that's here, and replace this with process.stdout.write, and here, we're just going to add Hello, a couple of spaces, and let's try to run this. So node global, and then we'll see Hello, and then when we use stdout.write, we're sending some strings to the terminal. So here what we could do is add some new lines with the \n, and then this is going to add those lines for us. What we want to do next is we want to create an array of questions. So here we'll say const questions, and we'll add a few strings here. So we'll say, What is your name?, What would you rather be doing?, and then we'll say, What is your preferred programming language. Excellent. So we have our questions, then we're going to create an empty array of answers. So here is our answers array. And then finally, we're going to create a function called ask. So ask is going to take i in as an argument. So i is going to stand in for the index for one of these questions. And here we go. We're going to say process.stdout.write. We'll add a couple new lines here, /n/n. We actually don't need the space in between those. And then, let's go ahead and say questions i, perfect. And because we're using this template string, holy moly, I need to make sure that I'm making this a template string with back ticks. And then finally, let's go ahead and add a little prompt for ourselves, we're going to say process.stdout.write, and then we'll add this little caret to indicate to ourselves that we are trying to accept some sort of input. Then finally, we're going to invoke the question. So we'll say, ask answers.length. And now let's try to run this again. Cool. So notice that running the app is going to ask the first question. It prompts the user for an answer, and then it quits. So we also leave the terminal out of whack because we use standard output here. So what we actually want to do is wait until the user answers the question. So what we can do is listen for a data event on this object using a function. So we're going to say process.stdin.on data, then we'll pass in a function here with the argument data, and here we'll say process.stdout.write data.toString.trim. So now we can continue to call ask with answers.length, and let's check this out. It says, What is your name? Eve. I'll say, that's my name, and it copies me. Stop it, stop it. (laughs) It's always copying me. By adding the listener, we start using node asynchronously. So every other app we've run until now has run through the command synchronously and quit, leaving us back at the terminal prompt. But this time the app is still running. It's waiting for some input. So in the next lesson, I'm going to talk to you about how we can stop the process when we're out of data and we're out of these prompts.
+```
+process.stdout.write("Hello ");
+```
+node global.js
+
+```
+process.stdout.write("Hello \n\n"");
+```
+
+node global.js
+
+```
+process.stdout.write("Hello \n\n"");
+const questions = [
+    "What is your name?",
+    "What would you rather be doing?",
+    "What is your preferred programming language"
+]
+```
