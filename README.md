@@ -1,5 +1,5 @@
 # Nodejs Essential Training
-#### 1. Inspecting the global object
+#### 2.1 Inspecting the global object
 ```
 console.log("Hello World")
 ```
